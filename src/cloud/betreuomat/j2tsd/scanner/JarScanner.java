@@ -78,4 +78,8 @@ public class JarScanner {
     public URLClassLoader getClassLoader() {
         return classLoader;
     }
+
+    public int getProcessedEntries() {
+        return processedEntries;
+    }
 }

@@ -3,7 +3,9 @@ package cloud.betreuomat.j2tsd.emitter;
 import cloud.betreuomat.j2tsd.models.Model;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AutoEmitter extends Emitter {
 
@@ -13,12 +15,15 @@ public class AutoEmitter extends Emitter {
 
     @Override
     public boolean emit() {
+        AtomicBoolean success = new AtomicBoolean(true);
         getModels().forEach(m -> {
-            System.out.println("// package: " + m.getClassPackage().getName());
-            System.out.println(m.getClassName());
-            m.getFields().forEach(field -> System.out.println("field " + field.getName() + ": " + field.getType().getSimpleName()));
-            m.getMethods().forEach(method -> System.out.println("function" + method.getName() + ": " + method.getReturnType().getSimpleName()));
+            try {
+                 emitAsInterface(m);
+            } catch (IOException exception) {
+                exception.printStackTrace();
+                success.set(false);
+            }
         });
-        return true;
+        return success.get();
     }
 }
