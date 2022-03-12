@@ -1,6 +1,7 @@
 package cloud.betreuomat.j2tsd.scanner;
 
 import cloud.betreuomat.j2tsd.builders.ModelBuilder;
+import cloud.betreuomat.j2tsd.misc.Validation;
 import cloud.betreuomat.j2tsd.models.Model;
 
 import java.io.File;
@@ -20,9 +21,11 @@ public class JarScanner {
     private Enumeration<JarEntry> jarEntries;
     private URLClassLoader classLoader;
 
+    private final String[] includePackage;
     private int processedEntries = 0;
 
-    public JarScanner(File inputFile) {
+    public JarScanner(File inputFile, String[] includePackage) {
+        this.includePackage = includePackage;
         init(inputFile);
     }
 
@@ -43,8 +46,10 @@ public class JarScanner {
         }
     }
 
-    public List<Model> scan() throws ClassNotFoundException {
+    public List<Model> scan() {
         ArrayList<Model> ret = new ArrayList<>();
+
+        int errorCounter = 0;
 
         while(jarEntries.hasMoreElements()) {
             JarEntry entry = jarEntries.nextElement();
@@ -54,11 +59,40 @@ public class JarScanner {
                 continue;
             }
             String className = entry.getName().substring(0, entry.getName().length() - 6);
-            className = className.replace('/', '.');
-            Class<?> clazz = classLoader.loadClass(className);
 
-            ret.add(new ModelBuilder(clazz).build());
+            if(Validation.matchClassName(className)) {
+                continue;
+            }
+
+            className = className.replace('/', '.');
+            try {
+                Class<?> clazz = classLoader.loadClass(className);
+
+                boolean includes = true;
+                for(String inc : includePackage) {
+                    if(!clazz.getPackageName().contains(inc)) {
+                        includes = false;
+                        break;
+                    }
+                }
+
+                if(!includes) {
+                    continue;
+                }
+
+                Model model = new ModelBuilder(clazz).build();
+
+                if(model.getClassName().isEmpty()) {
+                    continue;
+                }
+
+                ret.add(model);
+            } catch (NoClassDefFoundError | ClassCastException | ClassNotFoundException exception) {
+                errorCounter++;
+            }
         }
+
+        System.out.println("Scanned with " + errorCounter + " errors");
 
         return ret;
     }

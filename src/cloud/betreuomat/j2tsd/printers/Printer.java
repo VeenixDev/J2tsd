@@ -6,17 +6,16 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Objects;
 
 public abstract class Printer {
 
     private final Model model;
     private final File outFile;
-    private BufferedWriter bufferedWriter;
+    private final BufferedWriter bufferedWriter;
 
     public Printer(Model model, File outDir) throws IOException {
         this.model = model;
-        outFile = new File(outDir.getAbsolutePath() + "/" + model.getClassPackage().getName().replace('.', '/') + "/" +model.getClassName() + ".d.ts");
+        outFile = new File(outDir.getAbsolutePath() + "/" + model.getClassPackage().getName().replace('.', '/') + "/" + model.getClassName() + ".d.ts");
 
         setupFile(outFile);
 
@@ -24,7 +23,7 @@ public abstract class Printer {
     }
 
     private void setupFile(File file) throws IOException {
-        if(file.exists()) {
+        if (file.exists()) {
             return;
         }
 
@@ -32,7 +31,7 @@ public abstract class Printer {
         file.createNewFile();
     }
 
-    public abstract void printModel();
+    public abstract boolean printModel();
 
     protected final boolean needsReference(String type) {
         return !model.getClassName().equals(type.replace("[]", ""));

@@ -12,7 +12,7 @@ public class EnumPrinter extends Printer {
     }
 
     @Override
-    public void printModel() {
-
+    public boolean printModel() {
+        return true;
     }
 }

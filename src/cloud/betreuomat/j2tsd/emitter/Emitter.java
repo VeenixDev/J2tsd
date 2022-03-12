@@ -3,6 +3,7 @@ package cloud.betreuomat.j2tsd.emitter;
 import cloud.betreuomat.j2tsd.factories.PrinterFactory;
 import cloud.betreuomat.j2tsd.models.Model;
 import cloud.betreuomat.j2tsd.models.ModelType;
+import cloud.betreuomat.j2tsd.printers.Printer;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,15 +22,18 @@ public abstract class Emitter {
     public abstract boolean emit() throws IOException;
 
     protected void emitAsClass(Model m) throws IOException {
-        PrinterFactory.getPrinter(m, outDir, ModelType.CLASS).printModel();
+        Printer printer = PrinterFactory.getPrinter(m, outDir, ModelType.CLASS);
+        printer.printModel();
     }
 
     protected void emitAsInterface(Model m) throws IOException {
-        PrinterFactory.getPrinter(m, outDir, ModelType.INTERFACE).printModel();
+        Printer printer = PrinterFactory.getPrinter(m, outDir, ModelType.INTERFACE);
+        printer.printModel();
     }
 
     protected void emitAsEnum(Model m) throws IOException {
-        PrinterFactory.getPrinter(m, outDir, ModelType.ENUM).printModel();
+        Printer printer = PrinterFactory.getPrinter(m, outDir, ModelType.ENUM);
+        printer.printModel();
     }
 
     public final File getOutDir() {
