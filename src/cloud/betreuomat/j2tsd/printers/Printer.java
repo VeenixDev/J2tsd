@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 
 public abstract class Printer {
 
@@ -31,7 +32,36 @@ public abstract class Printer {
         file.createNewFile();
     }
 
-    public abstract boolean printModel();
+    public boolean print() throws IOException {
+        getWriter().write("""
+                /**
+                 * This is a auto generated file
+                 *\s
+                 * @author J2tsd - Java to TypeScript Definition generator
+                 * @since {{since}}
+                 * @package {{package}}
+                 */
+                 
+                """.replace("{{since}}", new Date().toString()).replace("{{package}}", getModel().getClassPackage().getName()));
+
+        for (String ref : getModel().getReferences()) {
+            getWriter().write("/// <reference path=\"" + ref + ".d.ts\" />\n");
+        }
+
+        if (getModel().getReferences().size() > 0) {
+            getWriter().write("\n");
+        }
+
+        String className = getModel().getClassName().isEmpty() ? null : getModel().getClassName();
+
+        if (className == null) {
+            return false;
+        }
+
+        return printModel();
+    }
+
+    protected abstract boolean printModel();
 
     protected final boolean needsReference(String type) {
         return !model.getClassName().equals(type.replace("[]", ""));

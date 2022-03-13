@@ -23,17 +23,17 @@ public abstract class Emitter {
 
     protected void emitAsClass(Model m) throws IOException {
         Printer printer = PrinterFactory.getPrinter(m, outDir, ModelType.CLASS);
-        printer.printModel();
+        printer.print();
     }
 
     protected void emitAsInterface(Model m) throws IOException {
         Printer printer = PrinterFactory.getPrinter(m, outDir, ModelType.INTERFACE);
-        printer.printModel();
+        printer.print();
     }
 
     protected void emitAsEnum(Model m) throws IOException {
         Printer printer = PrinterFactory.getPrinter(m, outDir, ModelType.ENUM);
-        printer.printModel();
+        printer.print();
     }
 
     public final File getOutDir() {
