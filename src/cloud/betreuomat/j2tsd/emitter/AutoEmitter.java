@@ -20,7 +20,8 @@ public class AutoEmitter extends Emitter {
             try {
                  switch (m.getType()) {
                      case ENUM -> emitAsEnum(m);
-                     case INTERFACE, CLASS -> emitAsInterface(m);
+                     case INTERFACE -> emitAsInterface(m);
+                     case CLASS -> emitAsClass(m);
                  }
             } catch (IOException exception) {
                 exception.printStackTrace();

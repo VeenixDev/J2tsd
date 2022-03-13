@@ -13,7 +13,7 @@ public class TypeCaster {
         };
     }
 
-    private static String detectType(Class<?> clazz) {
+    public static String detectType(Class<?> clazz) {
         return switch (clazz.getSimpleName()) {
             case "Number", "Integer", "int", "Float", "float", "Double", "double", "Short", "short", "Byte", "byte", "Long", "long" -> "number";
             case "String", "Character", "char" -> "string";

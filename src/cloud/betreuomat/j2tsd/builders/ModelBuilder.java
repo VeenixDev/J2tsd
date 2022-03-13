@@ -17,9 +17,9 @@ public class ModelBuilder {
     private final Method[] methods;
     private final String className;
     private final Package classPackage;
+    private final List<String> references = new ArrayList<>();
 
     private String[] includePackages = new String[0];
-    private List<String> references = new ArrayList<>();
 
     public ModelBuilder(Class<?> clazz) {
         this.type = ModelType.of(clazz);

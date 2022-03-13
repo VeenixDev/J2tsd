@@ -12,9 +12,9 @@ public class Main2 {
 
     public static void main(String[] args) throws ClassNotFoundException, IOException {
         File outDir = new File("D:/random/tsd/");
-        //File jarFile = new File("C:/Users/Paul/Desktop/Client.jar");
-        File jarFile = new File("D:/Workspace/Betreuomat/Temp/out/artifacts/test/test.jar");
-        String[] include = new String[] {"test"/*"de.veenixdev", "com.google"*/};
+        File jarFile = new File("C:/Users/Paul/Desktop/Client.jar");
+        //File jarFile = new File("D:/Workspace/Betreuomat/Temp/out/artifacts/test/test.jar");
+        String[] include = new String[] {/*"test"*/"de.veenixdev", "com.google"};
 
         JarScanner scanner = new JarScanner(jarFile, include);
         Emitter emitter = EmitterFactory.getEmitter(outDir, scanner.scan(), EmitterTypes.AUTODETECT);
