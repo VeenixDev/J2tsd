@@ -15,7 +15,7 @@ public class EnumPrinter extends Printer {
     @Override
     public boolean printModel() {
         try {
-            getWriter().write("declare enum " + getModel().getClassName() + " {\n");
+            write("declare enum " + getModel().getClassName() + " {\n");
 
             if(getModel().getFields().size() > 0) {
                 for(Field field : getModel().getFields()) {
@@ -23,11 +23,11 @@ public class EnumPrinter extends Printer {
                         continue;
                     }
 
-                    getWriter().write("  " + field.getName() + ",\n");
+                    write("  " + field.getName() + ",\n");
                 }
             }
 
-            getWriter().write("}\n");
+            write("}\n");
             return true;
         } catch (IOException exception) {
             exception.printStackTrace();

@@ -19,7 +19,6 @@ public abstract class Printer {
         outFile = new File(outDir.getAbsolutePath() + "/" + model.getClassPackage().getName().replace('.', '/') + "/" + model.getClassName() + ".d.ts");
 
         setupFile(outFile);
-
         bufferedWriter = new BufferedWriter(new FileWriter(outFile));
     }
 
@@ -36,7 +35,7 @@ public abstract class Printer {
 
     @SuppressWarnings("UnusedReturnValue")
     public boolean print() throws IOException {
-        getWriter().write("""
+        write("""
                 /**
                  * This is a auto generated file
                  *\s
@@ -48,11 +47,11 @@ public abstract class Printer {
                 """.replace("{{since}}", new Date().toString()).replace("{{package}}", getModel().getClassPackage().getName()));
 
         for (String ref : getModel().getReferences()) {
-            getWriter().write("/// <reference path=\"" + ref + ".d.ts\" />\n");
+            write("/// <reference path=\"" + ref + ".d.ts\" />\n");
         }
 
         if (getModel().getReferences().size() > 0) {
-            getWriter().write("\n");
+            write("\n");
         }
 
         String className = getModel().getClassName().isEmpty() ? null : getModel().getClassName();
@@ -66,6 +65,10 @@ public abstract class Printer {
         getWriter().close();
 
         return ret;
+    }
+
+    protected void write(String str) throws IOException {
+        bufferedWriter.write(str);
     }
 
     protected abstract boolean printModel();
@@ -84,7 +87,7 @@ public abstract class Printer {
         return model;
     }
 
-    protected BufferedWriter getWriter() {
+    private BufferedWriter getWriter() {
         return bufferedWriter;
     }
 }

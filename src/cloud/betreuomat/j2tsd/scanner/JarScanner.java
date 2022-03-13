@@ -52,6 +52,7 @@ public class JarScanner {
 
         int errorCounter = 0;
         int entries = 0;
+        int allEntryCount = 0;
 
         while(jarEntries.hasMoreElements()) {
             JarEntry entry = jarEntries.nextElement();
@@ -68,6 +69,7 @@ public class JarScanner {
 
             className = className.replace('/', '.');
             try {
+                allEntryCount++;
                 Class<?> clazz = classLoader.loadClass(className);
 
                 boolean includes = false;
@@ -90,12 +92,12 @@ public class JarScanner {
 
                 ret.add(model);
                 entries++;
-            } catch (NoClassDefFoundError | ClassCastException | ClassNotFoundException exception) {
+            } catch (NoClassDefFoundError | ClassCastException | ClassNotFoundException | IllegalAccessError exception) {
                 errorCounter++;
             }
         }
 
-        System.out.println("Scanned " + entries + " entries with " + errorCounter + " errors");
+        System.out.println("Scanned " + entries + " entries(ignored " + (allEntryCount - entries) + ") with " + errorCounter + " errors");
 
         return ret;
     }

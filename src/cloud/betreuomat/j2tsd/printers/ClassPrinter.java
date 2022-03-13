@@ -18,30 +18,30 @@ public class ClassPrinter extends Printer {
     @Override
     public boolean printModel() {
         try {
-            getWriter().write("declare class " + getModel().getClassName() + " {\n");
+            write("declare class " + getModel().getClassName() + " {\n");
 
             if (getModel().getFields().size() > 0) {
                 for (Field field : getModel().getFields()) {
                     String castName = TypeCaster.detectType(field);
 
-                    getWriter().write("  " + field.getName() + ": " + (castName == null ?
+                    write("  " + field.getName() + ": " + (castName == null ?
                             field.getType().getSimpleName() : castName) + ";\n");
                 }
             }
 
             if (getModel().getFields().size() > 0 && getModel().getMethods().size() > 0) {
-                getWriter().write("\n");
+                write("\n");
             }
 
             if (getModel().getMethods().size() > 0) {
                 for (Method method : getModel().getMethods()) {
                     String returnString = TypeCaster.detectType(method.getReturnType());
-                    getWriter().write("  " + method.getName() + ": (" + buildParameterString(method.getParameters())
+                    write("  " + method.getName() + ": (" + buildParameterString(method.getParameters())
                             + ") => " + (returnString == null ? method.getReturnType().getSimpleName() : returnString) + ";\n");
                 }
             }
 
-            getWriter().write("}");
+            write("}");
             return true;
         } catch (IOException exception) {
             exception.printStackTrace();

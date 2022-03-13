@@ -16,17 +16,17 @@ public class InterfacePrinter extends Printer {
     @Override
     public boolean printModel() {
         try {
-            getWriter().write("declare interface " + getModel().getClassName() + " {\n");
+            write("declare interface " + getModel().getClassName() + " {\n");
 
             if(getModel().getFields().size() > 0) {
                 for(Field field : getModel().getFields()) {
                     String castName = TypeCaster.detectType(field);
 
-                    getWriter().write("  " + field.getName() + ": " + (castName == null ? field.getType().getSimpleName() : castName) + ",\n");
+                    write("  " + field.getName() + ": " + (castName == null ? field.getType().getSimpleName() : castName) + ",\n");
                 }
             }
 
-            getWriter().write("}\n");
+            write("}\n");
             return true;
         } catch (IOException exception) {
             exception.printStackTrace();

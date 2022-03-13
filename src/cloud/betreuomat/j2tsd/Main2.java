@@ -6,23 +6,38 @@ import cloud.betreuomat.j2tsd.factories.EmitterTypes;
 import cloud.betreuomat.j2tsd.scanner.JarScanner;
 
 import java.io.File;
+import java.util.Date;
 
 public class Main2 {
 
     public static void main(String[] args) {
-        File outDir = new File("D:/random/tsd/");
-        File jarFile = new File("C:/Users/Paul/Desktop/Client.jar");
-        //File jarFile = new File("D:/Workspace/Betreuomat/Temp/out/artifacts/test/test.jar");
-        String[] include = new String[] {/*"test"*/"de.veenixdev", "com.google"};
+        /*
+        #############################
+            CONFIGURATION SECTION
+        #############################
+         */
+        File outDir = new File("D:/random/types/");
+        File jarFile = new File("D:/random/tsd/backend.jar");
+        String[] include = new String[] { "cloud.betreuomat.backend.dtos" };
+        EmitterTypes emitterType = EmitterTypes.CLASS_AS_INTERFACE;
 
+
+        /*
+        ##########################
+            SOURCE CODE BEGINS
+        ##########################
+         */
+        long started = new Date().getTime();
         JarScanner scanner = new JarScanner(jarFile, include);
-        Emitter emitter = EmitterFactory.getEmitter(outDir, scanner.scan(), EmitterTypes.AUTODETECT);
+        Emitter emitter = EmitterFactory.getEmitter(outDir, scanner.scan(), emitterType);
 
         if(emitter.emit()) {
-            System.out.println("Success!");
+            System.out.print("Succeeded");
         } else {
-            System.out.println("Failure");
+            System.out.println("Failed");
         }
+
+        System.out.println(" in " + ((float) (new Date().getTime() - started) / 1000) + "s");
     }
 
 }
