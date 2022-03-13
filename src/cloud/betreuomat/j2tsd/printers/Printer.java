@@ -58,7 +58,11 @@ public abstract class Printer {
             return false;
         }
 
-        return printModel();
+        boolean ret = printModel();
+        getWriter().flush();
+        getWriter().close();
+
+        return ret;
     }
 
     protected abstract boolean printModel();

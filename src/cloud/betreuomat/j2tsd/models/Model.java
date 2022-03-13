@@ -52,4 +52,8 @@ public class Model {
     public List<String> getReferences() {
         return references;
     }
+
+    public void clearReferences() {
+        references.clear();
+    }
 }

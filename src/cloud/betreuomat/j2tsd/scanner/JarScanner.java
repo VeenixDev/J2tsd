@@ -50,6 +50,7 @@ public class JarScanner {
         ArrayList<Model> ret = new ArrayList<>();
 
         int errorCounter = 0;
+        int entries = 0;
 
         while(jarEntries.hasMoreElements()) {
             JarEntry entry = jarEntries.nextElement();
@@ -87,12 +88,13 @@ public class JarScanner {
                 }
 
                 ret.add(model);
+                entries++;
             } catch (NoClassDefFoundError | ClassCastException | ClassNotFoundException exception) {
                 errorCounter++;
             }
         }
 
-        System.out.println("Scanned with " + errorCounter + " errors");
+        System.out.println("Scanned " + entries + " entries with " + errorCounter + " errors");
 
         return ret;
     }

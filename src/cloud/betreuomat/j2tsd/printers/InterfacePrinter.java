@@ -25,10 +25,8 @@ public class InterfacePrinter extends Printer {
                     getWriter().write("  " + field.getName() + ": " + (castName == null ? field.getType().getSimpleName() : castName) + ",\n");
                 }
             }
-            getWriter().write("}\n");
 
-            getWriter().flush();
-            getWriter().close();
+            getWriter().write("}\n");
             return true;
         } catch (IOException exception) {
             exception.printStackTrace();

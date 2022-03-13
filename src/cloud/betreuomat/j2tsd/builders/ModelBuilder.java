@@ -50,7 +50,7 @@ public class ModelBuilder {
                     }
                 }
 
-                if(included) {
+                if(included && !field.getType().getSimpleName().equals(className)) {
                     references.add(field.getType().getSimpleName());
                 }
             }

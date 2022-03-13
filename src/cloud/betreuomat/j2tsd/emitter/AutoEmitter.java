@@ -18,7 +18,10 @@ public class AutoEmitter extends Emitter {
         AtomicBoolean success = new AtomicBoolean(true);
         getModels().forEach(m -> {
             try {
-                 emitAsInterface(m);
+                 switch (m.getType()) {
+                     case ENUM -> emitAsEnum(m);
+                     case INTERFACE, CLASS -> emitAsInterface(m);
+                 }
             } catch (IOException exception) {
                 exception.printStackTrace();
                 success.set(false);

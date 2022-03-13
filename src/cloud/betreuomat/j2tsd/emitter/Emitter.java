@@ -32,6 +32,7 @@ public abstract class Emitter {
     }
 
     protected void emitAsEnum(Model m) throws IOException {
+        m.clearReferences();
         Printer printer = PrinterFactory.getPrinter(m, outDir, ModelType.ENUM);
         printer.print();
     }
