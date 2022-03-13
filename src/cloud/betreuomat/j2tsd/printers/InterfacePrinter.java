@@ -19,6 +19,7 @@ public class InterfacePrinter extends Printer {
 
     @Override
     public boolean printModel() {
+        /*
         List<String> references = new ArrayList<>();
 
         for(Field f : getModel().getFields()) {
@@ -26,6 +27,7 @@ public class InterfacePrinter extends Printer {
                 references.add(f.getType().getSimpleName());
             }
         }
+        */
 
         try {
             getWriter().write("""
@@ -38,11 +40,11 @@ public class InterfacePrinter extends Printer {
                      */
                      
                     """.replace("{{since}}", new Date().toString()).replace("{{package}}", getModel().getClassPackage().getName()));
-            for(String ref : references) {
+            for(String ref : getModel().getReferences()) {
                 getWriter().write("/// <reference path=\"" + ref + ".d.ts\" />\n");
             }
 
-            if(references.size() > 0) {
+            if(getModel().getReferences().size() > 0) {
                 getWriter().write("\n");
             }
 

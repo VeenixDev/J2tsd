@@ -13,7 +13,7 @@ public class Main2 {
     public static void main(String[] args) throws ClassNotFoundException, IOException {
         File outDir = new File("D:/random/tsd/");
         File jarFile = new File("C:/Users/Paul/Desktop/Client.jar");
-        String[] include = new String[] {"de.veenixdev"};
+        String[] include = new String[] {"de.veenixdev", "com.google"};
 
         JarScanner scanner = new JarScanner(jarFile, include);
         Emitter emitter = EmitterFactory.getEmitter(outDir, scanner.scan(), EmitterTypes.AUTODETECT);

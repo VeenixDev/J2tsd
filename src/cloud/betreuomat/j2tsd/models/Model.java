@@ -10,13 +10,15 @@ public class Model {
     private final ModelType type;
     private final List<Field> fields = new ArrayList<>();
     private final List<Method> methods = new ArrayList<>();
+    private final List<String> references;
     private final String className;
     private final Package classPackage;
 
-    public Model(ModelType type, String className, Package classPackage) {
+    public Model(ModelType type, String className, Package classPackage, List<String> references) {
         this.type = type;
         this.className = className;
         this.classPackage = classPackage;
+        this.references = references;
     }
 
     public void addField(Field f) {
@@ -45,5 +47,9 @@ public class Model {
 
     public Package getClassPackage() {
         return classPackage;
+    }
+
+    public List<String> getReferences() {
+        return references;
     }
 }

@@ -68,10 +68,10 @@ public class JarScanner {
             try {
                 Class<?> clazz = classLoader.loadClass(className);
 
-                boolean includes = true;
+                boolean includes = false;
                 for(String inc : includePackage) {
-                    if(!clazz.getPackageName().contains(inc)) {
-                        includes = false;
+                    if(clazz.getPackageName().contains(inc)) {
+                        includes = true;
                         break;
                     }
                 }
@@ -80,7 +80,7 @@ public class JarScanner {
                     continue;
                 }
 
-                Model model = new ModelBuilder(clazz).build();
+                Model model = new ModelBuilder(clazz).includes(includePackage).build();
 
                 if(model.getClassName().isEmpty()) {
                     continue;
