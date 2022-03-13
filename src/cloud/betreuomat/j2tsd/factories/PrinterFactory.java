@@ -12,6 +12,7 @@ import java.io.IOException;
 
 public class PrinterFactory {
 
+    @SuppressWarnings("unused")
     public static Printer getPrinter(Model model, File outDir) throws IOException {
         return switch (model.getType()) {
             case CLASS -> new ClassPrinter(model, outDir);

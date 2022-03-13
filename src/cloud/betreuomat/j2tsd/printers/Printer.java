@@ -23,15 +23,18 @@ public abstract class Printer {
         bufferedWriter = new BufferedWriter(new FileWriter(outFile));
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void setupFile(File file) throws IOException {
         if (file.exists()) {
             return;
         }
 
+        //noinspection ResultOfMethodCallIgnored
         file.getParentFile().mkdirs();
         file.createNewFile();
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public boolean print() throws IOException {
         getWriter().write("""
                 /**
@@ -67,10 +70,12 @@ public abstract class Printer {
 
     protected abstract boolean printModel();
 
+    @SuppressWarnings("unused")
     protected final boolean needsReference(String type) {
         return !model.getClassName().equals(type.replace("[]", ""));
     }
 
+    @SuppressWarnings("unused")
     protected File getOutFile() {
         return outFile;
     }

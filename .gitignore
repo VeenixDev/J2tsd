@@ -58,8 +58,6 @@ dist/
 *.jar
 
 # Maven
-target/
-dist/
 
 # JetBrains IDE
 .idea/

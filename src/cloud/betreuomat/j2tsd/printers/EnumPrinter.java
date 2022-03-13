@@ -1,6 +1,5 @@
 package cloud.betreuomat.j2tsd.printers;
 
-import cloud.betreuomat.j2tsd.misc.TypeCaster;
 import cloud.betreuomat.j2tsd.models.Model;
 
 import java.io.File;

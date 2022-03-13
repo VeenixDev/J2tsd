@@ -6,11 +6,10 @@ import cloud.betreuomat.j2tsd.factories.EmitterTypes;
 import cloud.betreuomat.j2tsd.scanner.JarScanner;
 
 import java.io.File;
-import java.io.IOException;
 
 public class Main2 {
 
-    public static void main(String[] args) throws ClassNotFoundException, IOException {
+    public static void main(String[] args) {
         File outDir = new File("D:/random/tsd/");
         File jarFile = new File("C:/Users/Paul/Desktop/Client.jar");
         //File jarFile = new File("D:/Workspace/Betreuomat/Temp/out/artifacts/test/test.jar");

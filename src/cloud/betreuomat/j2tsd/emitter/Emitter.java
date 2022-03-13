@@ -19,7 +19,7 @@ public abstract class Emitter {
         this.models = models;
     }
 
-    public abstract boolean emit() throws IOException;
+    public abstract boolean emit();
 
     protected void emitAsClass(Model m) throws IOException {
         Printer printer = PrinterFactory.getPrinter(m, outDir, ModelType.CLASS);
@@ -37,6 +37,7 @@ public abstract class Emitter {
         printer.print();
     }
 
+    @SuppressWarnings("unused")
     public final File getOutDir() {
         return outDir;
     }

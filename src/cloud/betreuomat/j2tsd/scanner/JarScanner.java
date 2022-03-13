@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+@SuppressWarnings("unused")
 public class JarScanner {
 
     private String jarPath;
