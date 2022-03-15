@@ -20,7 +20,7 @@ public class InterfacePrinter extends Printer {
 
             if(getModel().getFields().size() > 0) {
                 for(Field field : getModel().getFields()) {
-                    String castName = TypeCaster.detectType(field);
+                    String castName = TypeCaster.detectType(field.getType().getSimpleName(), field.getGenericType().getTypeName()).getType();
 
                     write("  " + field.getName() + ": " + (castName == null ? field.getType().getSimpleName() : castName) + ",\n");
                 }

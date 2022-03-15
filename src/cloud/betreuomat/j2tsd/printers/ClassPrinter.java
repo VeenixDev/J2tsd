@@ -22,7 +22,7 @@ public class ClassPrinter extends Printer {
 
             if (getModel().getFields().size() > 0) {
                 for (Field field : getModel().getFields()) {
-                    String castName = TypeCaster.detectType(field);
+                    String castName = TypeCaster.detectType(field.getType().getSimpleName(), field.getGenericType().getTypeName()).getType();
 
                     write("  " + field.getName() + ": " + (castName == null ?
                             field.getType().getSimpleName() : castName) + ";\n");
@@ -35,7 +35,7 @@ public class ClassPrinter extends Printer {
 
             if (getModel().getMethods().size() > 0) {
                 for (Method method : getModel().getMethods()) {
-                    String returnString = TypeCaster.detectType(method.getReturnType());
+                    String returnString = TypeCaster.detectType(method.getReturnType().getSimpleName(), method.getGenericReturnType().getTypeName()).getType();
                     write("  " + method.getName() + ": (" + buildParameterString(method.getParameters())
                             + ") => " + (returnString == null ? method.getReturnType().getSimpleName() : returnString) + ";\n");
                 }
@@ -57,7 +57,7 @@ public class ClassPrinter extends Printer {
         StringBuilder builder = new StringBuilder();
 
         for(Parameter parameter : parameters) {
-            String type = TypeCaster.detectType(parameter.getType());
+            String type = TypeCaster.detectType(parameter.getType().getSimpleName(), null).getType();
             builder.append(parameter.getName()).append(": ").append(type == null ?
                     parameter.getType().getSimpleName() : type).append(", ");
         }

@@ -18,7 +18,7 @@ public class Main2 {
          */
         File outDir = new File("D:/random/types/");
         File jarFile = new File("D:/random/tsd/backend.jar");
-        String[] include = new String[] { "cloud.betreuomat.backend.dtos" };
+        String[] include = new String[] { "cloud.betreuomat.backend.persistence.entity" };
         EmitterTypes emitterType = EmitterTypes.CLASS_AS_INTERFACE;
 
 

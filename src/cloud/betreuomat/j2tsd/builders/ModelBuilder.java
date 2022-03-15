@@ -1,5 +1,6 @@
 package cloud.betreuomat.j2tsd.builders;
 
+import cloud.betreuomat.j2tsd.misc.DetectionResult;
 import cloud.betreuomat.j2tsd.misc.TypeCaster;
 import cloud.betreuomat.j2tsd.models.Model;
 import cloud.betreuomat.j2tsd.models.ModelType;
@@ -39,28 +40,53 @@ public class ModelBuilder {
         Model model = new Model(type, className, classPackage, references);
 
         for(Field field : fields) {
-            String type = TypeCaster.detectType(field);
+            DetectionResult type = TypeCaster.detectType(field.getType().getSimpleName(), field.getGenericType().getTypeName());
 
-            if(type == null) {
-                boolean included = false;
-
-                for(String s : includePackages) {
-                    if(field.getType().getName().contains(s)) {
-                        included = true;
-                        break;
-                    }
-                }
-
-                if(included && !field.getType().getSimpleName().equals(className)) {
-                    references.add(field.getType().getSimpleName());
-                }
-            }
+            includeType(type, field);
             model.addField(field);
         }
 
         Arrays.stream(methods).forEach(model::addMethod);
 
         return model;
+    }
+
+    private void includeType(DetectionResult type, Field field) {
+        if(type.getType() == null) {
+            boolean included = false;
+
+            for(String s : includePackages) {
+                if(field.getType().getName().contains(s)) {
+                    included = true;
+                    break;
+                }
+            }
+
+            if(included && !field.getType().getSimpleName().equals(className)) {
+                references.add(field.getType().getSimpleName());
+            }
+        } else if(type.isGeneric()) {
+            boolean included = false;
+
+            System.out.print("Generic Found> " + field.getName() + ": " + type.getGenericType());
+            for (String s : includePackages) {
+                if (field.getGenericType().getTypeName().contains(s)) {
+                    included = true;
+                    System.out.print(" > Needs reference!");
+                    break;
+                }
+            }
+
+            System.out.print("\n");
+
+            if(included && !type.getGenericType().equals(className)) {
+                DetectionResult temp = TypeCaster.detectType(type.genericType(), null);
+
+                if (temp.getType() == null) {
+                    references.add(type.getGenericType());
+                }
+            }
+        }
     }
 
     public String[] getIncludePackages() {
