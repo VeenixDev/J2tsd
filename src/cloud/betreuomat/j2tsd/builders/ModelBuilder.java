@@ -68,11 +68,9 @@ public class ModelBuilder {
         } else if(type.isGeneric()) {
             boolean included = false;
 
-            System.out.print("Generic Found> " + field.getName() + ": " + type.getGenericType());
             for (String s : includePackages) {
                 if (field.getGenericType().getTypeName().contains(s)) {
                     included = true;
-                    System.out.print(" > Needs reference!");
                     break;
                 }
             }

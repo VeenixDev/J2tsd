@@ -50,11 +50,6 @@ public abstract class Printer {
             write("/// <reference path=\"" + ref + ".d.ts\" />\n");
         }
 
-        System.out.println("Model: " + getModel().getClassName());
-        System.out.println("Reference Count: " + getModel().getReferences().size());
-        System.out.println("Field count: " + getModel().getFields().size());
-        System.out.println("\n");
-
         if (getModel().getReferences().size() > 0) {
             write("\n");
         }
