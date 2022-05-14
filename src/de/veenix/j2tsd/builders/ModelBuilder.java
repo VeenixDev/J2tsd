@@ -78,7 +78,7 @@ public class ModelBuilder {
             System.out.print("\n");
 
             if(included && !type.getGenericType().equals(className)) {
-                DetectionResult temp = TypeCaster.detectType(type.genericType(), null);
+                DetectionResult temp = TypeCaster.detectType(type.getGenericType(), null);
 
                 if (temp.getType() == null) {
                     references.add(type.getGenericType());

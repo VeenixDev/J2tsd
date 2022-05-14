@@ -2,7 +2,21 @@ package de.veenix.j2tsd.gui.components.misc;
 
 import java.awt.*;
 
-public record ComponentInfo(Color backgroundColor, int minHeight, int minWidth, int maxHeight, int maxWidth) {
+public class ComponentInfo {
+
+    private final Color backgroundColor;
+    private final int minHeight;
+    private final int minWidth;
+    private final int maxHeight;
+    private final int maxWidth;
+
+    public ComponentInfo(Color backgroundColor, int minHeight, int minWidth, int maxHeight, int maxWidth) {
+        this.backgroundColor = backgroundColor;
+        this.minHeight = minHeight;
+        this.minWidth = minWidth;
+        this.maxHeight = maxHeight;
+        this.maxWidth = maxWidth;
+    }
 
     public int getIntValue(String name) {
         return switch (name) {

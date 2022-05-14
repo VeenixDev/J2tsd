@@ -5,6 +5,11 @@ The typical usecase would be if you want to connect a Java backend with a TypeSc
 
 Download the jar and execute it, then there will open a window. Configure just as you like and generate.
 
+## Requirements
+
+The project is dependency free.  
+But you will need Java 15 to execute the compiled program
+
 ## ComboBox
 
 At the ComboBox you can choose between different emitters, the only difference is how they output your class to TypeScript.
