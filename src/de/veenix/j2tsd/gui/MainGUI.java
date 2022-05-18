@@ -13,15 +13,16 @@ public class MainGUI extends JFrame {
 
     private final int WINDOW_WIDTH;
     private final int WINDOW_HEIGHT;
-    private final String VERSION = "1.0";
 
     public MainGUI() {
         WINDOW_WIDTH = 360;
         WINDOW_HEIGHT = 464;
+        String VERSION = "1.0";
 
         this.setTitle("Java2Tsd | " + VERSION);
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setLayout(null);
+        this.setResizable(false);
         this.getContentPane().setBackground(Color.GRAY);
 
         loadComponents();
