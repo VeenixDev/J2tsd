@@ -14,8 +14,10 @@ But you will need Java 15 to execute the compiled program
 
 At the ComboBox you can choose between different emitters, the only difference is how they output your class to TypeScript.
 
-AUTODETECT = J2tsd automatically chooses the emitter for every file  
-CLASS = J2tsd will handle every file as a class  
-ENUM = J2tsd will handle every file as an enum  
-INTERFACE = J2tsd will handle every file as an interface  
-INTERFACE_AS_CLASS = J2tsd will autodetect for every file except for interfaces these will be handled as classes
+| TYPE       | Descriptions                                                                                        |
+|------------|-----------------------------------------------------------------------------------------------------|
+| AUTODETECT | J2tsd automatically chooses the emitter for every file                                              |
+| CLASS      | J2tsd will handle every file as a class                                                             |
+| ENUM       | J2tsd will handle every file as an enum                                                             |
+| INTERFACE  | J2tsd will handle every file as an enum                                                             |
+| INTERFACE_AS_CLASS | J2tsd will autodetect for every file except for interfaces these will be handled as classes |
